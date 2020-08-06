@@ -2,7 +2,6 @@ require('dotenv').config();
 const { Storage } = require('@google-cloud/storage');
 const vision = require('@google-cloud/vision').v1;
 const chalk = require('chalk');
-const fs = require('fs');
 
 const storage = new Storage({ keyFilename: process.env.GOOGLE_SECRET });
 

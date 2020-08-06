@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "dev-api": "nodemon src/server/server",
-    "start": "node src/index",
-    "dev": "nodemon src/index"
+    "start": "babel-node -- src/index",
+    "dev": "nodemon --exec babel-node src/index"
   },
   "author": "hawyar",
   "license": "MIT",
   "private": false,
   "dependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/node": "^7.10.5",
     "@google-cloud/language": "^4.1.0",
     "@google-cloud/storage": "^5.1.2",
     "@google-cloud/vision": "^2.1.1",
