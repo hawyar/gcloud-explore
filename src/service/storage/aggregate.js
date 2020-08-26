@@ -1,11 +1,13 @@
 const bucket = require('../storage/bucket');
 
 async function main() {
-  // create bucket
-  //  const bucky = await bucket.createBucket('past-storm');
+  create bucket
+  const bucky = await bucket.createBucket();
 
-  // get all buckets
-  const myBuckets = await bucket.listBuckets();
-  console.log(myBuckets);
+  console.log(bucky);
+
+  // // get all buckets
+  // const myBuckets = await bucket.listBuckets();
+  // console.log(myBuckets);
 }
 main();

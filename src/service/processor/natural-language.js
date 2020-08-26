@@ -10,7 +10,7 @@ async function main() {
   });
 
   // The text to analyze
-  const text = `The Google Hosted Libraries is a stable, reliable, high-speed, globally available content distribution network for the most popular, open-source JavaScript libraries. Google works directly with the key stakeholders for each library effort and accepts the latest versions as they are released.`;
+  const text = `You can also use this method with promises. The readFile method will return a promise if you do not pass a callback function.`;
 
   const document = {
     content: text,

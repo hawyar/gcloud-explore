@@ -23,7 +23,7 @@ module.exports = {
   //   makeDir(dir, recursive = false, callback) {
   //     fs.mkdirSync(dir, { recursive }, (err) => {
   //       if (err) return;
-  //       console.log(`✅ Success: created ${dir}`);
+  //       console.log(` Success: created ${dir}`);
   //     });
   //     callback();
   //   },

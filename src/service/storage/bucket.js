@@ -2,6 +2,7 @@ require('dotenv').config();
 const { Storage } = require('@google-cloud/storage');
 const chalk = require('chalk');
 const _ = require('lodash');
+const namegen = require('../../utils/namegen');
 
 /**
  * Storage instance
@@ -15,28 +16,30 @@ const storage = new Storage({
 
 /**
  * Create a new bucket
- * @param bucketName Bucket Name
+ * @param {String} bucketName Bucket Name
  * @param options Bucket options, defaults to https://cloud.google.com/storage/docs/storage-classes & https://cloud.google.com/storage/docs/locations
- * @return Object Newly created bucket
+ * @return {Promise}
  */
-async function createBucket(bucketName, options = {}) {
-  const allBuckets = await listBuckets().then((data) => {
-    return data;
+async function createBucket(bucketName = namegen.randomName(), options = {}) {
+  return new Promise(async (resolve, reject) => {
+    const allBuckets = await listBuckets().then((data) => {
+      return data;
+    });
+    const bucketIndex = _.findIndex(allBuckets, (buck) => {
+      return buck === bucketName;
+    });
+    if (bucketIndex > 0) {
+      reject(
+        new Error(
+          `Error: Bucket ${chalk.bgRed(
+            bucketName
+          )} already exists, choose a different name`
+        )
+      );
+    }
+    const [bucket] = await storage.createBucket(bucketName, { ...options });
+    resolve(bucket);
   });
-
-  const bucketIndex = _.findIndex(allBuckets, (buck) => {
-    return buck === bucketName;
-  });
-
-  if (bucketIndex > 0) {
-    throw new Error(
-      `Error: Bucket ${chalk.bgRed(
-        bucketName
-      )} already exists, choose a different name`
-    );
-  }
-  const [bucket] = await storage.createBucket(bucketName, { ...options });
-  return bucket;
 }
 
 /**
@@ -117,10 +120,7 @@ async function listFilesBuckets(fetchBucket = []) {
 
     return allFiles;
   } catch (err) {
-    console.log(
-      `Error:` + chalk.bgRedBright(`Cannot fetch files from google storage`)
-    );
-    throw new Error(err);
+    throw new Error(chalk.bgRedBright(err));
   }
 }
 
