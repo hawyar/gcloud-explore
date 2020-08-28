@@ -6,7 +6,8 @@
   "scripts": {
     "dev-api": "nodemon src/server/server",
     "start": "node src/server/server.js",
-    "dev": "nodemon --exec babel-node src/index"
+    "dev": "nodemon --exec babel-node src/server/server.js",
+    "test": "jest --config ./jest.config.json"
   },
   "author": "hawyar",
   "license": "MIT",
@@ -27,6 +28,13 @@
     "morgan": "^1.10.0",
     "mv": "^2.1.1",
     "nodemon": "^2.0.4",
+    "sinon": "^9.0.3",
     "unique-names-generator": "^4.3.1"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.11.0",
+    "chai": "^4.2.0",
+    "jest": "^26.4.2",
+    "mocha": "^8.1.2"
   }
 }

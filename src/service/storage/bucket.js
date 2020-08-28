@@ -15,6 +15,17 @@ const storage = new Storage({
   projectId: process.env.PROJECT_ID,
 });
 
+async function bucket(bucketName) {
+  return new Promise((resolve, reject) => {
+    try {
+      const newBucket = storage.bucket(bucketName);
+      resolve(newBucket);
+    } catch (e) {
+      reject(e);
+    }
+  });
+}
+
 /**
  * Create a new bucket
  * @param {String} bucketName Bucket Name
@@ -93,21 +104,25 @@ async function getBucketMetadata(bucket = '') {
  * @param String, Bucket name
  * @returns Array of files inside specified bucket
  */
-async function listFileNames(bucketName = process.env.BUCKET) {
-  let fileNames = [];
-  try {
-    const [files] = await storage.bucket(bucketName).getFiles();
+// async function listFileNames(bucketName = process.env.BUCKET) {
 
-    files.forEach((file) => {
-      fileMeta.push(file.name);
-    });
+//   return new Promise((resolve, reject) => {
+//     let fileNames = [];
+//     try {
+//       const [files] = await storage.bucket(bucketName).getFiles();
 
-    return fileNames;
-  } catch (error) {
-    console.log(`Error:` + chalk.bgRedBright(`Failed: Cannot fetch bucket`));
-    throw new Error(err);
-  }
-}
+//       files.forEach((file) => {
+//         fileMeta.push(file.name);
+//       });
+
+//       resolve(fileNames)
+//     } catch (error) {
+//       reject(error)
+
+//     }
+//   })
+
+// }
 
 /**
  * Fetches all the files for multiple buckets
