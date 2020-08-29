@@ -26,11 +26,10 @@ async function main() {
   util.mkdirSync('test-results/nl');
 
   entities.forEach((el, val = 1) => {
-    console.log(el);
     fs.writeFile(
       `test-results/nl/index-${val}.json`,
       JSON.stringify(el),
-      (err) => console.log(err)
+      () => {}
     );
   });
 
