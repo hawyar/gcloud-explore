@@ -91,11 +91,6 @@ async function getBucketMetadata(bucket = '') {
       reject(error);
     }
   });
-
-  // for (const [key, value] of Object.entries(metadata)) {
-  //   Object.assign(key, value);
-  // }
-  return metadata;
 }
 
 /**
@@ -104,25 +99,25 @@ async function getBucketMetadata(bucket = '') {
  * @param String, Bucket name
  * @returns Array of files inside specified bucket
  */
-// async function listFileNames(bucketName = process.env.BUCKET) {
+async function listFileNames(bucketName = process.env.BUCKET) {
 
-//   return new Promise((resolve, reject) => {
-//     let fileNames = [];
-//     try {
-//       const [files] = await storage.bucket(bucketName).getFiles();
+  return new Promise((resolve, reject) => {
+    let fileNames = [];
+    try {
+      const [files] = await storage.bucket(bucketName).getFiles();
 
-//       files.forEach((file) => {
-//         fileMeta.push(file.name);
-//       });
+      files.forEach((file) => {
+        fileMeta.push(file.name);
+      });
 
-//       resolve(fileNames)
-//     } catch (error) {
-//       reject(error)
+      resolve(fileNames)
+    } catch (error) {
+      reject(error)
 
-//     }
-//   })
+    }
+  })
 
-// }
+}
 
 /**
  * Fetches all the files for multiple buckets
@@ -187,19 +182,11 @@ async function uploadFile(bucketName, file) {
   });
 }
 
-async function deleteBucket(bucketName) {
-  // Deletes the bucket
-  await storage.bucket(bucketName).delete();
-  console.log(`Bucket ${bucketName} deleted.`);
-}
-
-module.exports = {
-  listBuckets,
-  createBucket,
-  deleteBucket,
-  getBucketMetadata,
-  uploadFile,
-};
+// async function deleteBucket(bucketName) {
+//   // Deletes the bucket
+//   await storage.bucket(bucketName).delete();
+//   console.log(`Bucket ${bucketName} deleted.`);
+// }
 
 // // TODO: sort by specified ext type
 // function sortByExt(file) {
@@ -209,3 +196,12 @@ module.exports = {
 //   // for now just print file
 //   console.log(file);
 // }
+
+module.exports = {
+  listBuckets,
+  createBucket,
+  deleteBucket,
+  getBucketMetadata,
+  uploadFile,
+};
+
